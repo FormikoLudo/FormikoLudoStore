@@ -1,7 +1,41 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
+apply plugin: "jacoco"
+
 dependencies {
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+}
+
+
+test {
+  useJUnitPlatform()
+
+  testLogging {
+    events "passed", "skipped", "failed"
+    //cf https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLogging.html
+    // maxGranularity 3
+    // minGranularity 2
+    showStackTraces true
+    exceptionFormat "full"
+  }
+
+  finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        // Broken by java 21 & Gradle 8.4
+        // xml.enabled true
+        // csv.enabled false
+        // html.enabled true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
