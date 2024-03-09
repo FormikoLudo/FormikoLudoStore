@@ -40,7 +40,6 @@ public class StoreEntry extends Table {
     @Override
     protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
         super.drawBackground(batch, parentAlpha, x, y);
-        batch.draw
     }
 
     public static StoreEntry fromYAML(String content) {

@@ -16,8 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-import fr.formiko.monopoly.MyButton;
-import fr.formiko.monopoly.RotatedText;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.Locale;
@@ -85,19 +83,19 @@ static {
         textButtonStyle.font = mySkin.getFont(WIDGET_STYLE);
         mySkin.add(WIDGET_STYLE, textButtonStyle);
     }
-    public static MyButton getButton(String label, String key, Runnable action) {
-        if (mySkin == null)
-            prepareSkin();
-        MyButton res = new MyButton(LABELS.getString(label), mySkin, key);
-        res.pad(20);
-        res.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                action.run();
-            }
-        });
-        return res;
-    }
+//    public static MyButton getButton(String label, String key, Runnable action) {
+//        if (mySkin == null)
+//            prepareSkin();
+//        MyButton res = new MyButton(LABELS.getString(label), mySkin, key);
+//        res.pad(20);
+//        res.addListener(new ClickListener(){
+//            @Override
+//            public void clicked(InputEvent event, float x, float y) {
+//                action.run();
+//            }
+//        });
+//        return res;
+//    }
 
     /**
      *
