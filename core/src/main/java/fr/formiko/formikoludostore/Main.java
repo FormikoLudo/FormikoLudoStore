@@ -16,12 +16,14 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         stg = new Stage();
-        stg.addActor(StoreEntry.fromYAML("Test"));
+        StoreEntry entry = StoreEntry.fromYAML("Test");
+        entry.setPosition(50, .7f * Gdx.graphics.getHeight());
+        stg.addActor(entry);
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stg.act();
         stg.draw();

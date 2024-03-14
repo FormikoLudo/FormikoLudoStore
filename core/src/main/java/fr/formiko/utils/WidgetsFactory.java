@@ -34,7 +34,7 @@ public final class WidgetsFactory {
     private static BitmapFont TEXT_FONT;
 
     public static Locale LANGUAGE = Locale.of("fr","FR");
-    public static ResourceBundle LABELS = ResourceBundle.getBundle("languages/translation",LANGUAGE);
+//    public static ResourceBundle LABELS = ResourceBundle.getBundle("languages/translation",LANGUAGE);
     private static final String DEFAULT_STYLE = "default";
     private static final String BOLD_STYLE = "bold";
     private static final String H1_STYLE = "h1";
@@ -115,7 +115,7 @@ static {
     }
 
     public static void prepareLabelAndAddToTable(String labelText, TextSize textSize, Table parent, float percentageOfScreenUsed) {
-        Label res = WidgetsFactory.getTile(WidgetsFactory.LABELS.getString(labelText), textSize);
+        Label res = WidgetsFactory.getTile(labelText, textSize);
         res.setWrap(textSize == TextSize.P || textSize == TextSize.EM);
         res.setAlignment(Align.left);
         parent.add(res).width(Gdx.graphics.getWidth() * percentageOfScreenUsed);
