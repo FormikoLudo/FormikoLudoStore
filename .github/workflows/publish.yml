@@ -35,9 +35,9 @@ jobs:
     - name: create release
       run: |
         mv version.md assets/
-        ./gradlew desktop:dist -Pversion='${{ steps.version.outputs.version }}'
-        ls desktop/build/libs/
-        mv desktop/build/libs/${{ env.ARTIFACT_NAME }}-${{ steps.version.outputs.version }}.jar ${{ env.ARTIFACT_NAME }}.jar
+        ./gradlew assemble -Pversion='${{ steps.version.outputs.version }}'
+        ls lwjgl3/build/lib/
+        mv lwjgl3/build/lib/${{ env.ARTIFACT_NAME }}-${{ steps.version.outputs.version }}.jar ${{ env.ARTIFACT_NAME }}.jar
         ls
 
     - name: release
