@@ -7,6 +7,9 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+  api "space.earlygrey:shapedrawer:$shapeDrawerVersion"
+  implementation "org.yaml:snakeyaml:2.2"
+  implementation "com.github.FormikoLudo:Utils:0.0.4"
 }
 
 
