@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import fr.formiko.utils.WidgetsFactory;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+import fr.formiko.utils.TextSize;
 
 import java.awt.*;
 
@@ -31,6 +32,7 @@ public class StoreEntry extends Table {
         System.out.println("StoreEntry size: " + this.getWidth() + "x" + this.getHeight());
         this.schdr = WidgetsFactory.getShapDrawer();
         System.out.println("End of constructor");
+        this.addActor(WidgetsFactory.getTile(title, TextSize.H1));
     }
 
     public String getTitle() {
@@ -50,6 +52,7 @@ public class StoreEntry extends Table {
         WidgetsFactory.getBatch().begin();
         this.schdr.filledRectangle(getX(),getY(),getWidth(),getHeight(),new Color (0.15f, 0.15f, 0.2f, 1f));
         WidgetsFactory.getBatch().end();
+        super.draw(batch, parentAlpha);
     }
 
     public static StoreEntry fromYAML(String content) {
