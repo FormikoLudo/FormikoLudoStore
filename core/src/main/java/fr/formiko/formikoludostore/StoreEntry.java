@@ -8,8 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import fr.formiko.utils.WidgetsFactory;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import fr.formiko.utils.TextSize;
-
-import java.awt.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 /**
  * StoreEntry is a Table that contains necessary information about a given game.
@@ -17,13 +18,15 @@ import java.awt.*;
  */
 public class StoreEntry extends Table {
     private final String title;
+    private final String author;
     private final String description;
     private final String image;
     private final ShapeDrawer schdr;
 
-    public StoreEntry(String title, String description, String image) {
+    public StoreEntry(String title, String author, String description, String image) {
         System.out.println("Begin of constructor");
         this.title = title;
+        this.author = author;
         this.description = description;
         this.image = image;
         this.setSize(.8f * Gdx.graphics.getWidth(), .1f * Gdx.graphics.getWidth());
@@ -32,7 +35,16 @@ public class StoreEntry extends Table {
         System.out.println("StoreEntry size: " + this.getWidth() + "x" + this.getHeight());
         this.schdr = WidgetsFactory.getShapDrawer();
         System.out.println("End of constructor");
-        this.addActor(WidgetsFactory.getTile(title, TextSize.H1));
+        Label label = WidgetsFactory.getTile(title, TextSize.H1);
+        this.addActor(label);
+
+        label.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) { 
+                Main.getInstance().setGame(title, author);
+                System.exit(101);
+            }
+        });
     }
 
     public String getTitle() {
@@ -56,6 +68,6 @@ public class StoreEntry extends Table {
     }
 
     public static StoreEntry fromYAML(String content) {
-        return new StoreEntry("Test", "description", "image");
+        return new StoreEntry("Test", "Auth", "description", "image");
     }
 }
