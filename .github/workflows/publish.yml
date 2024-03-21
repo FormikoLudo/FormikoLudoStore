@@ -46,7 +46,7 @@ jobs:
         echo "Build and move to root with desired name"
         ./gradlew assemble -Pversion='${{ steps.version.outputs.content }}'
         ls lwjgl3/build/lib/
-        mv lwjgl3/build/lib/${{ env.ARTIFACT_NAME }}-${{ steps.version.outputs.content }}.jar ${{ env.ARTIFACT_NAME }}.jar
+        mv lwjgl3/build/lib/${{ env.ARTIFACT_NAME }}-*.jar ${{ env.ARTIFACT_NAME }}.jar
         ls
 
     - name: release
