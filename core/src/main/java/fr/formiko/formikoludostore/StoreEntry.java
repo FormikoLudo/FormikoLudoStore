@@ -20,7 +20,7 @@ public class StoreEntry extends Table {
     private final String image;
     private final ShapeDrawer schdr;
 
-    private StoreEntry(String title, String description, String image) {
+    public StoreEntry(String title, String description, String image) {
         System.out.println("Begin of constructor");
         this.title = title;
         this.description = description;
@@ -53,7 +53,6 @@ public class StoreEntry extends Table {
     }
 
     public static StoreEntry fromYAML(String content) {
-        return new StoreEntry("Test", "derscription", "image");
-
+        return new StoreEntry("Test", "description", "image");
     }
 }
