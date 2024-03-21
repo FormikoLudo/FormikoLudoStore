@@ -36,11 +36,9 @@ jobs:
         path: version.md
 
     - name: create release
+      shell: pwsh
       run: |
         echo "Move version.md to resources and create CHANGELOG.md if not exist"
-        if (!(Test-Path "src/main/resources")) {
-          mkdir src/main/resources
-        }
         if (!(Test-Path "CHANGELOG*")) {
           New-Item CHANGELOG.md
         }
