@@ -8,6 +8,7 @@ import fr.formiko.formikoludostore.Main;
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
+        returnVersionIfNeeded(args);
         createApplication();
     }
 
@@ -29,4 +30,18 @@ public class Lwjgl3Launcher {
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
     }
+    private static void returnVersionIfNeeded(String[] args) {
+        if (args.length > 0 && args[0].replace("-", "").equalsIgnoreCase("version")) {
+            try {
+                InputStream is = DesktopLauncher.class.getClassLoader().getResourceAsStream("version.md");
+                String version = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)).lines()
+                        .collect(Collectors.joining("\n"));
+                System.out.println(version);
+                System.exit(0);
+            } catch (Exception e) {
+                System.out.println("Fail to get version in DesktopLauncher.");
+            }
+        }
+    }
+
 }
