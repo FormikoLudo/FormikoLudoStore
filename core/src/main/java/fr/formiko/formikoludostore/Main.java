@@ -20,13 +20,19 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Stage stg;
     private Yaml yaml;
+    private Native nativeImpl;
     private static Main instance;
 
+    public Main(Native nativeImpl) {
+        this.nativeImpl = nativeImpl;
+        instance = this;
+    }
+
     public static Main getInstance() { return instance; }
+    public static void exit(int code) { instance.nativeImpl.exit(code); }
 
     @Override
     public void create() {
-        instance = this;
         batch = new SpriteBatch();
         stg = new Stage();
         try (InputStream in = new FileInputStream(getAvailableGamesDataFile())) {
@@ -71,7 +77,7 @@ public class Main extends ApplicationAdapter {
 
     public void setGame(String title, String author) {
         System.out.println("Game selected: " + title);
-
-        yaml.dump(Map.of("userName", author, "projectName", title), Gdx.files.absolute(getGameToLaunchDataFile().getAbsolutePath()).writer(false));
+        String json = "{\"userName\":\""+author+"\",\"projectName\":\""+title+"\"}";
+        Gdx.files.absolute(getGameToLaunchDataFile().getAbsolutePath()).writeString(json, false);
     }
 }

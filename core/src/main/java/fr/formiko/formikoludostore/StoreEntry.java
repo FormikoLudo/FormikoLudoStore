@@ -42,7 +42,7 @@ public class StoreEntry extends Table {
             @Override
             public void clicked(InputEvent event, float x, float y) { 
                 Main.getInstance().setGame(title, author);
-                System.exit(101);
+                Main.exit(101);
             }
         });
     }
