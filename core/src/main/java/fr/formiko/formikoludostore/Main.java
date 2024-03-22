@@ -20,13 +20,19 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Stage stg;
     private Yaml yaml;
+    private Native nativeImpl;
     private static Main instance;
 
+    public Main(Native nativeImpl) {
+        this.nativeImpl = nativeImpl;
+        instance = this;
+    }
+
     public static Main getInstance() { return instance; }
+    public static void exit(int code) { instance.nativeImpl.exit(code); }
 
     @Override
     public void create() {
-        instance = this;
         batch = new SpriteBatch();
         stg = new Stage();
         try (InputStream in = new FileInputStream(getAvailableGamesDataFile())) {

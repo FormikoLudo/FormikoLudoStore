@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
+import fr.formiko.formikoludostore.Native;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Graphics;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
+import com.badlogic.gdx.Gdx;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -18,7 +22,7 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new Main(), getDefaultConfiguration());
+        return new Lwjgl3Application(new Main(new DesktopNative()), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
@@ -49,4 +53,17 @@ public class Lwjgl3Launcher {
         }
     }
 
+}
+
+/**
+ * {@summary Provide special for Desktop function.}
+ */
+class DesktopNative implements Native {
+    @Override
+    public void toFront() {
+        Lwjgl3Window window = ((Lwjgl3Graphics) Gdx.graphics).getWindow();
+        window.focusWindow();
+    }
+    @Override
+    public void exit(int code) { System.exit(code); }
 }
