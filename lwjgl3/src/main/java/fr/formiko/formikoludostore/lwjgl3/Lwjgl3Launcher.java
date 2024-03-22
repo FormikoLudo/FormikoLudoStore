@@ -3,6 +3,11 @@ package fr.formiko.formikoludostore.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import fr.formiko.formikoludostore.Main;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -33,7 +38,7 @@ public class Lwjgl3Launcher {
     private static void returnVersionIfNeeded(String[] args) {
         if (args.length > 0 && args[0].replace("-", "").equalsIgnoreCase("version")) {
             try {
-                InputStream is = DesktopLauncher.class.getClassLoader().getResourceAsStream("version.md");
+                InputStream is = Lwjgl3ApplicationConfiguration.class.getClassLoader().getResourceAsStream("version.md");
                 String version = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8)).lines()
                         .collect(Collectors.joining("\n"));
                 System.out.println(version);
