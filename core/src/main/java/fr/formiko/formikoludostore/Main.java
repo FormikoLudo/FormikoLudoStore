@@ -77,7 +77,7 @@ public class Main extends ApplicationAdapter {
 
     public void setGame(String title, String author) {
         System.out.println("Game selected: " + title);
-
-        yaml.dump(Map.of("userName", author, "projectName", title), Gdx.files.absolute(getGameToLaunchDataFile().getAbsolutePath()).writer(false));
+        String json = "{\"userName\":\""+author+"\",\"projectName\":\""+title+"\"}";
+        Gdx.files.absolute(getGameToLaunchDataFile().getAbsolutePath()).writeString(json, false);
     }
 }
