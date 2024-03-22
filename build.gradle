@@ -28,7 +28,7 @@ configure(subprojects) {
 }
 
 subprojects {
-  version = '0.1.0'
+  version = '0.0.0' // Edit version.md to change the version of the project.
   ext.appName = 'FormikoLudoStore'
   repositories {
     mavenCentral()
