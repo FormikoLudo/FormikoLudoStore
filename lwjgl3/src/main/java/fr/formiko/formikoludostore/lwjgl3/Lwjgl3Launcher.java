@@ -65,5 +65,8 @@ class DesktopNative implements Native {
         window.focusWindow();
     }
     @Override
-    public void exit(int code) { System.exit(code); }
+    public void exit(int code) {
+        System.out.println("Exiting with code: " + code);
+        System.exit(code);
+    }
 }
