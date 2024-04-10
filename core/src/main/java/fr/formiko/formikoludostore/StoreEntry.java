@@ -3,14 +3,12 @@ package fr.formiko.formikoludostore;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Widget;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import fr.formiko.utils.WidgetsFactory;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import fr.formiko.utils.TextSize;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 /**
  * StoreEntry is a Table that contains necessary information about a given game.
@@ -22,29 +20,38 @@ public class StoreEntry extends Table {
     private final String description;
     private final String image;
     private final ShapeDrawer schdr;
+    private boolean debug  = true;
 
     public StoreEntry(String title, String author, String description, String image) {
-        System.out.println("Begin of constructor");
         this.title = title;
         this.author = author;
         this.description = description;
         this.image = image;
         this.setSize(.8f * Gdx.graphics.getWidth(), .1f * Gdx.graphics.getWidth());
-//        this.setPosition(10,Gdx.graphics.getHeight() - getHeight());
         this.setColor(new Color (0.15f, 0.15f, 0.2f, 1f));
-        System.out.println("StoreEntry size: " + this.getWidth() + "x" + this.getHeight());
         this.schdr = WidgetsFactory.getShapDrawer();
-        System.out.println("End of constructor");
-        Label label = WidgetsFactory.getTile(title, TextSize.H1);
-        this.addActor(label);
+        Label titleLabel = WidgetsFactory.getTile(title, TextSize.H1);
+        Label authorLabel = WidgetsFactory.getTile(author, TextSize.H2);
+        HorizontalGroup hg = new HorizontalGroup();
+        VerticalGroup vg = new VerticalGroup();
+        Table firstLine = new Table();
+        firstLine.add(titleLabel).pad(10.f);
+        firstLine.add(authorLabel).pad(10.f);
+        hg.addActor(firstLine);
+//        hg.addActor(authorLabel);
+        this.addActor(hg);
 
-        label.addListener(new ClickListener() {
+        titleLabel.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { 
+            public void clicked(InputEvent event, float x, float y) {
                 Main.getInstance().setGame(title, author);
                 Main.exit(101);
             }
         });
+        if(debug) {
+            System.out.println("Dimensions: "+getWidth()+"x"+getHeight());
+            debug= false;
+        }
     }
 
     public String getTitle() {
@@ -61,10 +68,10 @@ public class StoreEntry extends Table {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        WidgetsFactory.getBatch().begin();
-        this.schdr.filledRectangle(getX(),getY(),getWidth(),getHeight(),new Color (0.15f, 0.15f, 0.2f, 1f));
-        WidgetsFactory.getBatch().end();
         super.draw(batch, parentAlpha);
+        WidgetsFactory.getBatch().begin();
+        this.schdr.filledRectangle(getX(),getY(),getWidth(),getHeight(), Color.RED);//new Color (0.15f, 0.15f, 0.2f, 1f));
+        WidgetsFactory.getBatch().end();
     }
 
     public static StoreEntry fromYAML(String content) {

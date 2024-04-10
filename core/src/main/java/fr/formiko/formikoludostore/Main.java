@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import org.yaml.snakeyaml.Yaml;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,13 +42,18 @@ public class Main extends ApplicationAdapter {
             Map<String, Map<String, Object>> authors = yaml.load(in);
             System.out.println("games: "+authors);
             int k=0;
+            Table content = new Table();
             for(Map.Entry<String, Map<String, Object>> author : authors.entrySet()) {
                 for (Map.Entry<String, Object> game : author.getValue().entrySet()) {
                     StoreEntry entry = new StoreEntry(game.getKey(), author.getKey(), "", "");
-                    stg.addActor(entry);
-                    entry.setPosition(50, .7f * Gdx.graphics.getHeight() + (k-- * 200));
+                    content.add(entry).padTop(10).padBottom(10).expand().row();
                 }
             }
+            ScrollPane pane = new ScrollPane(content);
+            Table entries = new Table();
+            entries.setFillParent(true);
+            entries.add(pane).expand().fill();
+            stg.addActor(entries);
         } catch (IOException e) {
             e.printStackTrace();
         }
